@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Arcade Pokémon</title>
     <style>
-        body { background: #1a1a1a; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; margin: 0; padding: 20px; }
-        #game-container { width: 100%; max-width: 640px; height: 480px; margin: 20px auto; background: #000; border: 4px solid #333; border-radius: 8px; overflow: hidden; }
-        .menu { margin-bottom: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
-        button { background: #e3350d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        button:hover { background: #b12a0a; transform: scale(1.05); }
-        .instrucoes { font-size: 0.8em; color: #888; margin-top: 10px; }
+        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
+        #game-container { width: 100%; max-width: 640px; height: 480px; margin: 20px auto; background: #000; border: 2px solid #555; }
+        .menu { margin-bottom: 20px; }
+        button { background: #e3350d; color: white; border: none; padding: 10px 15px; margin: 5px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #ff4500; }
+        #game { width: 100%; height: 100%; }
     </style>
 </head>
 <body>
@@ -18,32 +18,32 @@
     <h1>🕹️ Meu Arcade Pokémon</h1>
     
     <div class="menu">
-        <button onclick="carregarJogo('Pokemon Complete Crystal v0d2.gbc')">Crystal Complete</button>
-        <button onclick="carregarJogo('Pokemon Gold EX 1st Patched.gbc')">Gold EX</button>
-        <button onclick="carregarJogo('Pokemon Yellow 151 (v3.0).gbc')">Yellow 151</button>
+        <button onclick="iniciar('Pokemon Complete Crystal v0d2.gbc')">Crystal Complete</button>
+        <button onclick="iniciar('Pokemon Gold EX 1st Patched.gbc')">Gold EX</button>
+        <button onclick="iniciar('Pokemon Yellow 151 (v3.0).gbc')">Yellow 151</button>
     </div>
 
     <div id="game-container">
         <div id="game"></div>
     </div>
 
-    <p class="instrucoes">Clique em um jogo para carregar. Use as setas e as teclas Z e X para controlar.</p>
-
     <script>
-        function carregarJogo(nomeArquivo) {
+        function iniciar(arquivo) {
+            // Limpa o que tiver dentro da div do jogo
             document.getElementById('game').innerHTML = '';
-            
-            EJS_player = '#game';
-            EJS_gameUrl = 'jogos/' + encodeURIComponent(nomeArquivo); // encode evita erros com espaços
-            EJS_core = 'gbc'; 
-            EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
-            EJS_startOnLoaded = true;
-            
-            let loader = document.createElement('script');
-            loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            document.body.appendChild(loader);
+
+            // Configurações globais que o loader.js vai ler
+            window.EJS_player = '#game';
+            window.EJS_gameUrl = 'jogos/' + arquivo; 
+            window.EJS_core = 'gbc';
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            window.EJS_startOnLoaded = true;
+
+            // Cria o script do emulador dinamicamente
+            let script = document.createElement('script');
+            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            document.body.appendChild(script);
         }
     </script>
-
 </body>
 </html>

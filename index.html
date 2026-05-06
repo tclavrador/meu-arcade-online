@@ -29,19 +29,19 @@
 
     <script>
         function iniciar(arquivo) {
-            // Limpa o que tiver dentro da div do jogo
             document.getElementById('game').innerHTML = '';
 
-            // Configurações globais que o loader.js vai ler
             window.EJS_player = '#game';
             window.EJS_gameUrl = 'jogos/' + arquivo; 
             window.EJS_core = 'gbc';
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            
+            // Mudamos para o servidor do UNPKG, que é mais estável para o GitHub
+            window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
             window.EJS_startOnLoaded = true;
 
-            // Cria o script do emulador dinamicamente
             let script = document.createElement('script');
-            script.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
+            // Também mudamos a origem do loader
+            script.src = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js';
             document.body.appendChild(script);
         }
     </script>

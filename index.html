@@ -6,15 +6,17 @@
     <title>Meu Arcade Pokémon</title>
     <style>
         body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
-        #game-area { width: 100%; max-width: 600px; height: 450px; margin: 20px auto; background: #000; border: 2px solid #e3350d; }
+        #game-area { width: 100%; max-width: 800px; height: 500px; margin: 20px auto; background: #000; border: 2px solid #e3350d; border-radius: 10px; overflow: hidden; }
         .menu { margin-bottom: 20px; }
-        button { background: #e3350d; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #ff4500; }
+        button { background: #e3350d; color: white; border: none; padding: 12px 20px; margin: 5px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button:hover { background: #ff4500; transform: scale(1.05); }
+        iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
 <body>
 
     <h1>🕹️ Meu Arcade Pokémon</h1>
+    <p>Selecione seu jogo e divirta-se!</p>
     
     <div class="menu">
         <button onclick="iniciar('crystal.gbc')">Pokémon Crystal</button>
@@ -23,28 +25,27 @@
     </div>
 
     <div id="game-area">
-        <div id="game"></div>
+        <div style="padding-top: 200px; color: #555;">Aguardando seleção de jogo...</div>
     </div>
 
     <script>
         function iniciar(arquivo) {
-            // Remove qualquer instância anterior do emulador
-            document.getElementById('game').innerHTML = '';
+            const container = document.getElementById('game-area');
+            const user = 'tclavrador'; 
+            const repo = 'meu-arcade-online';
             
-            // Configurações básicas
-            window.EJS_player = '#game';
-            window.EJS_gameUrl = 'jogos/' + arquivo;
-            window.EJS_core = 'gbc';
-            
-            // Usando o servidor estável do BstExternal (muito usado no GitHub Pages)
-            window.EJS_pathtodata = 'https://rawcdn.githack.com/EmulatorJS/EmulatorJS/main/data/';
-            window.EJS_startOnLoaded = true;
+            // Gerando o link direto para a ROM no seu GitHub Pages
+            const gameUrl = `https://${user}.github.io/${repo}/jogos/${arquivo}`;
 
-            // Criar o script de forma limpa
-            let script = document.createElement('script');
-            script.src = 'https://rawcdn.githack.com/EmulatorJS/EmulatorJS/main/data/loader.js';
-            document.body.appendChild(script);
+            // Injetando o Iframe do emulador oficial
+            container.innerHTML = `
+                <iframe 
+                    src="https://emulatorjs.org/emu/?game=${encodeURIComponent(gameUrl)}&core=gbc" 
+                    allowfullscreen>
+                </iframe>
+            `;
         }
     </script>
+
 </body>
 </html>

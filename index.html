@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Arcade Online</title>
+    <style>
+        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; }
+        #game-container { width: 100%; max-width: 800px; height: 600px; margin: 20px auto; background: #000; }
+    </style>
+</head>
+<body>
+    <h1>🕹️ Meu Arcade Online</h1>
+    <p>Selecione um jogo para começar</p>
+
+    <div id="game-container">
+        <div id="game"></div>
+    </div>
+
+    <script>
+        // Configurações do Emulador
+        EJS_player = '#game';
+        EJS_gameUrl = ''; // Vamos preencher isso no próximo passo
+        EJS_core = 'gba'; // Exemplo: gba, nes, snes
+        EJS_pathtodata = 'data/'; 
+    </script>
+    <script src="data/loader.js"></script>
+</body>
+</html>

@@ -29,20 +29,28 @@
 
     <script>
         function carregar(nomeDoArquivo) {
-            // Limpa o container anterior
-            document.getElementById('game').innerHTML = '';
+            const container = document.getElementById('game');
+            container.innerHTML = ''; // Limpa o container
 
-            // Configuração oficial do EmulatorJS
+            // Configurações aprimoradas
             window.EJS_player = '#game';
             window.EJS_gameUrl = 'jogos/' + nomeDoArquivo;
-            window.EJS_core = 'gbc';
-            window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
+            window.EJS_core = 'gbc'; // Game Boy Color
+            
+            // Usando o repositório oficial de dados para evitar erros de download
+            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
             window.EJS_startOnLoaded = true;
+            
+            // Forçar o emulador a não esperar por BIOS se não for necessário
+            window.EJS_language = 'pt-BR';
+            window.EJS_pwa = false; 
 
-            // Insere o loader
             let loader = document.createElement('script');
-            loader.src = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js';
+            loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
             document.body.appendChild(loader);
+            
+            // LOG DE AJUDA: Mostra no console se o link está sendo gerado certo
+            console.log("Tentando carregar: " + window.EJS_gameUrl);
         }
     </script>
 

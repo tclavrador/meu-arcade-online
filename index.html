@@ -6,11 +6,10 @@
     <title>Meu Arcade Pokémon</title>
     <style>
         body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
-        #game-container { width: 100%; max-width: 600px; height: 450px; margin: 20px auto; background: #000; border: 2px solid #e3350d; border-radius: 10px; position: relative; }
+        #game-area { width: 100%; max-width: 600px; height: 450px; margin: 20px auto; background: #000; border: 2px solid #e3350d; }
         .menu { margin-bottom: 20px; }
-        button { background: #e3350d; color: white; border: none; padding: 12px 20px; margin: 5px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
-        button:hover { background: #ff4500; transform: scale(1.05); }
-        #game { width: 100%; height: 100%; }
+        button { background: #e3350d; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #ff4500; }
     </style>
 </head>
 <body>
@@ -18,41 +17,34 @@
     <h1>🕹️ Meu Arcade Pokémon</h1>
     
     <div class="menu">
-        <button onclick="carregar('crystal.gbc')">Pokémon Crystal</button>
-        <button onclick="carregar('gold.gbc')">Pokémon Gold</button>
-        <button onclick="carregar('yellow.gbc')">Pokémon Yellow</button>
+        <button onclick="iniciar('crystal.gbc')">Pokémon Crystal</button>
+        <button onclick="iniciar('gold.gbc')">Pokémon Gold</button>
+        <button onclick="iniciar('yellow.gbc')">Pokémon Yellow</button>
     </div>
 
-    <div id="game-container">
+    <div id="game-area">
         <div id="game"></div>
     </div>
 
     <script>
-        function carregar(nomeDoArquivo) {
-            const container = document.getElementById('game');
-            container.innerHTML = ''; // Limpa o container
-
-            // Configurações aprimoradas
+        function iniciar(arquivo) {
+            // Remove qualquer instância anterior do emulador
+            document.getElementById('game').innerHTML = '';
+            
+            // Configurações básicas
             window.EJS_player = '#game';
-            window.EJS_gameUrl = 'jogos/' + nomeDoArquivo;
-            window.EJS_core = 'gbc'; // Game Boy Color
+            window.EJS_gameUrl = 'jogos/' + arquivo;
+            window.EJS_core = 'gbc';
             
-            // Usando o repositório oficial de dados para evitar erros de download
-            window.EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            // Usando o servidor estável do BstExternal (muito usado no GitHub Pages)
+            window.EJS_pathtodata = 'https://rawcdn.githack.com/EmulatorJS/EmulatorJS/main/data/';
             window.EJS_startOnLoaded = true;
-            
-            // Forçar o emulador a não esperar por BIOS se não for necessário
-            window.EJS_language = 'pt-BR';
-            window.EJS_pwa = false; 
 
-            let loader = document.createElement('script');
-            loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
-            document.body.appendChild(loader);
-            
-            // LOG DE AJUDA: Mostra no console se o link está sendo gerado certo
-            console.log("Tentando carregar: " + window.EJS_gameUrl);
+            // Criar o script de forma limpa
+            let script = document.createElement('script');
+            script.src = 'https://rawcdn.githack.com/EmulatorJS/EmulatorJS/main/data/loader.js';
+            document.body.appendChild(script);
         }
     </script>
-
 </body>
 </html>

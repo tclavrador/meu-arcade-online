@@ -31,18 +31,16 @@
 
     <script>
         function carregarJogo(nomeArquivo) {
-            // Limpa o container para novo jogo
             document.getElementById('game').innerHTML = '';
             
-            // Configurações do EmulatorJS
             EJS_player = '#game';
-            EJS_gameUrl = 'jogos/' + nomeArquivo; // Caminho para sua pasta de jogos
-            EJS_core = 'gbc'; // Game Boy Color
-            EJS_pathtodata = 'data/'; 
+            EJS_gameUrl = 'jogos/' + encodeURIComponent(nomeArquivo); // encode evita erros com espaços
+            EJS_core = 'gbc'; 
+            EJS_pathtodata = 'https://cdn.emulatorjs.org/stable/data/';
+            EJS_startOnLoaded = true;
             
-            // Recarrega o script do emulador para iniciar o jogo escolhido
             let loader = document.createElement('script');
-            loader.src = 'data/loader.js';
+            loader.src = 'https://cdn.emulatorjs.org/stable/data/loader.js';
             document.body.appendChild(loader);
         }
     </script>

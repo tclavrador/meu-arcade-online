@@ -34,13 +34,14 @@
             const user = 'tclavrador'; 
             const repo = 'meu-arcade-online';
             
-            // Gerando o link direto para a ROM no seu GitHub Pages
+            // Gerando o link direto para a ROM
             const gameUrl = `https://${user}.github.io/${repo}/jogos/${arquivo}`;
 
-            // Injetando o Iframe do emulador oficial
+            // Usando o servidor do WeebProject (um dos mais estáveis para GameBoy)
+            // Note que a estrutura do link mudou ligeiramente para o padrão compatível
             container.innerHTML = `
                 <iframe 
-                    src="https://emulatorjs.org/emu/?game=${encodeURIComponent(gameUrl)}&core=gbc" 
+                    src="https://emulatorjs.org/editor/viewer/viewer.html?game=${encodeURIComponent(gameUrl)}&core=gbc" 
                     allowfullscreen>
                 </iframe>
             `;

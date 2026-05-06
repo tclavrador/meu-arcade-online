@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meu Arcade Pokémon</title>
     <style>
-        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
-        #game-container { width: 100%; max-width: 640px; height: 480px; margin: 20px auto; background: #000; border: 2px solid #555; }
+        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; margin: 0; padding: 20px; }
+        #game-container { width: 100%; max-width: 600px; height: 450px; margin: 20px auto; background: #000; border: 2px solid #e3350d; border-radius: 10px; position: relative; }
         .menu { margin-bottom: 20px; }
-        button { background: #e3350d; color: white; border: none; padding: 10px 15px; margin: 5px; border-radius: 5px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #ff4500; }
+        button { background: #e3350d; color: white; border: none; padding: 12px 20px; margin: 5px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button:hover { background: #ff4500; transform: scale(1.05); }
         #game { width: 100%; height: 100%; }
     </style>
 </head>
@@ -18,9 +18,9 @@
     <h1>🕹️ Meu Arcade Pokémon</h1>
     
     <div class="menu">
-        <button onclick="iniciar('crystal.gbc')">Pokémon Crystal</button>
-        <button onclick="iniciar('gold.gbc')">Pokémon Gold</button>
-        <button onclick="iniciar('yellow.gbc')">Pokémon Yellow</button>
+        <button onclick="carregar('crystal.gbc')">Pokémon Crystal</button>
+        <button onclick="carregar('gold.gbc')">Pokémon Gold</button>
+        <button onclick="carregar('yellow.gbc')">Pokémon Yellow</button>
     </div>
 
     <div id="game-container">
@@ -28,22 +28,23 @@
     </div>
 
     <script>
-        function iniciar(arquivo) {
+        function carregar(nomeDoArquivo) {
+            // Limpa o container anterior
             document.getElementById('game').innerHTML = '';
 
+            // Configuração oficial do EmulatorJS
             window.EJS_player = '#game';
-            window.EJS_gameUrl = 'jogos/' + arquivo; 
+            window.EJS_gameUrl = 'jogos/' + nomeDoArquivo;
             window.EJS_core = 'gbc';
-            
-            // Mudamos para o servidor do UNPKG, que é mais estável para o GitHub
             window.EJS_pathtodata = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/';
             window.EJS_startOnLoaded = true;
 
-            let script = document.createElement('script');
-            // Também mudamos a origem do loader
-            script.src = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js';
-            document.body.appendChild(script);
+            // Insere o loader
+            let loader = document.createElement('script');
+            loader.src = 'https://cdn.jsdelivr.net/gh/EmulatorJS/EmulatorJS@latest/data/loader.js';
+            document.body.appendChild(loader);
         }
     </script>
+
 </body>
 </html>
